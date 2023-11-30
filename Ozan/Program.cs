@@ -83,37 +83,14 @@ namespace Ozan
         {
             try
             {
-                var pbKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsEL4dA18vl6bpNnSnBURmSNXUW8Bw4RDOKoeArVVN4xGGxBiG2nlgmi9WqJACIKAnJ8oHhNoJENPoqNj+OqJJg==";
-                //寻找当前目录下*.lic文件
-                var files = Directory.GetFiles(Environment.CurrentDirectory, "*.lic").FirstOrDefault("");
-                var license = File.ReadAllText(files);
-                //解密license.lic文件
 
-                //以pbKey生成MD5
-                var aesKey = SHA256.HashData(Convert.FromBase64String(pbKey));
-                var aesIv = MD5.HashData(aesKey);
-                var aes = Aes.Create();
-                aes.Key = aesKey;
-                aes.IV = aesIv;
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
-                var aeslic = aes.DecryptCbc(Convert.FromBase64String(license), aesIv);
-                var licenseString = Encoding.UTF8.GetString(aeslic);
-                //加载license.lic文件
-                Lic = License.Load(licenseString);
-                if (!Lic.Validate()
-                        .ExpirationDate()
-                        .And()
-                        .Signature(pbKey)
-                        .AssertValidLicense().Any())
-                {
                     config.AddCommand<OzanLoginCommand>("OzanLogin").WithAlias("ol").WithDescription("用于在当前Ozan目录生成Ozan凭据文件");
                     config.AddBranch<PaySettings>("Pay", add =>
                     {
                         add.SetDescription("Tg Premium 自动开会员,支持多个端.");
                         add.AddCommand<PremiumOzanCommand>("Ozan").WithDescription("使用Ozan提取3ds验证码自动开通会员,会随机使用可用卡号付款.");
                     });
-                }
+              
 
             }
             catch (Exception e)
