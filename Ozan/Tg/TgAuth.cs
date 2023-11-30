@@ -43,13 +43,10 @@ namespace Ozan.Tg
                 if (dc.Value.AuthKeyID == 0)
                 {
 
-#if DEBUG
+
                     dc.Value.AuthKeyID = BinaryPrimitives.ReadInt64LittleEndian(authKeyHash.AsSpan(12));
 
-#else
-                    dc.Value.AuthKeyID = NetworkAuth.getAuthKeyID(authKeyHash);
 
-#endif
                 }
 
                 if (dc.Value.Id == 0)

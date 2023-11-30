@@ -14,7 +14,7 @@ namespace Ozan.Core
 
         public static string getSignatureKey(string str = "com.ozan.android")
         {
-#if DEBUG
+
             var bytes = Encoding.UTF8.GetBytes(str);
             var hash = SHA256.Create().ComputeHash(bytes);
             var hex = BitConverter.ToString(hash).Replace("-", "").ToLower();
@@ -40,26 +40,22 @@ namespace Ozan.Core
             } while (v3 != 36);
             return key.ToString();
 
-#else
 
-            return "";
 
-#endif
+
         }
 
 
         public static string getSignature(string phone, string time)
         {
-#if DEBUG
+
             var key = getSignatureKey();
             var signStr = $"{key}:{phone}:{time}";
             var signBytes = Encoding.UTF8.GetBytes(signStr);
             var signHash = SHA256.Create().ComputeHash(signBytes);
             var signHex = BitConverter.ToString(signHash).Replace("-", "").ToLower();
             return signHex;
-#else
-return NetworkAuth.getSignature(phone, time);
-#endif
+
 
 
 
