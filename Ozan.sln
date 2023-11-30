@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ozan", "Ozan\Ozan.csproj", "{7DDFD88C-9FFD-4554-89F3-AF0DDC32BA73}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WTelegramClient.Extensions.Updates", "WTelegramClient.Extensions.Updates-master\WTelegramClient.Extensions.Updates.csproj", "{B460E2B8-054B-4553-96AB-C0F4AF85D823}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DDFD88C-9FFD-4554-89F3-AF0DDC32BA73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DDFD88C-9FFD-4554-89F3-AF0DDC32BA73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DDFD88C-9FFD-4554-89F3-AF0DDC32BA73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DDFD88C-9FFD-4554-89F3-AF0DDC32BA73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B460E2B8-054B-4553-96AB-C0F4AF85D823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B460E2B8-054B-4553-96AB-C0F4AF85D823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B460E2B8-054B-4553-96AB-C0F4AF85D823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B460E2B8-054B-4553-96AB-C0F4AF85D823}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E83D3FBD-6F1F-4257-99CE-64E4CD220990}
+	EndGlobalSection
+EndGlobal

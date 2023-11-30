@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "Pay": {
+      "commandName": "Project",
+      "commandLineArgs": "Pay --proxy=socks5://127.0.0.1:10808 Ozan",
+      "remoteDebugEnabled": false
+    }
+  }
+}
