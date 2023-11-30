@@ -15,7 +15,11 @@ using Standard.Licensing;
 using Standard.Licensing.Validation;
 using License = Standard.Licensing.License;
 
-[assembly: Obfuscation(Feature = "encrypt symbol names with password iuyYQ76GaAuwJtnhMNM8DN8pDfqNAhVXyKe5UJ6ZjMz1iyBUnOi8S5aXhfywKvt8", Exclude = false)]
+[assembly:
+    Obfuscation(
+        Feature = "encrypt symbol names with password iuyYQ76GaAuwJtnhMNM8DN8pDfqNAhVXyKe5UJ6ZjMz1iyBUnOi8S5aXhfywKvt8",
+        Exclude = false)]
+
 namespace Ozan
 {
     internal class Program
@@ -35,8 +39,8 @@ namespace Ozan
                     Console.WriteLine($"创建目录时发生错误：{ex.Message}");
                 }
             }
- 
         }
+
         public static string GenerateRandomAndroidPhoneModel()
         {
             string[] androidModels =
@@ -83,19 +87,16 @@ namespace Ozan
         {
             try
             {
-
-                    config.AddCommand<OzanLoginCommand>("OzanLogin").WithAlias("ol").WithDescription("用于在当前Ozan目录生成Ozan凭据文件");
-                    config.AddBranch<PaySettings>("Pay", add =>
-                    {
-                        add.SetDescription("Tg Premium 自动开会员,支持多个端.");
-                        add.AddCommand<PremiumOzanCommand>("Ozan").WithDescription("使用Ozan提取3ds验证码自动开通会员,会随机使用可用卡号付款.");
-                    });
-              
-
+                config.AddCommand<OzanLoginCommand>("OzanLogin").WithAlias("ol")
+                    .WithDescription("用于在当前Ozan目录生成Ozan凭据文件");
+                config.AddBranch<PaySettings>("Pay", add =>
+                {
+                    add.SetDescription("Tg Premium 自动开会员,支持多个端.");
+                    add.AddCommand<PremiumOzanCommand>("Ozan").WithDescription("使用Ozan提取3ds验证码自动开通会员,会随机使用可用卡号付款.");
+                });
             }
             catch (Exception e)
             {
-
             }
         }
 
@@ -143,11 +144,10 @@ namespace Ozan
 
             public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
             {
-              return  await Run(context, settings);
+                return await Run(context, settings);
             }
 
             [Obfuscation(Feature = "flatten", Exclude = false)]
-
             private async Task<int> Run(CommandContext context, Settings settings)
             {
                 //判断settings.Phone是否是+开始是就去掉
@@ -164,7 +164,7 @@ namespace Ozan
                         settings.AndroidVersion is < 9 or > 13
                             ? $"{new Random().Next(9, 13)}"
                             : $"{settings.AndroidVersion}",
-                        settings.AndroidModel,settings.AppVersion);
+                        settings.AndroidModel, settings.AppVersion);
                 }
                 else
                 {
@@ -184,7 +184,6 @@ namespace Ozan
                 var response = await ozan.UserDevice(phone);
                 if (response.StatusCode == HttpStatusCode.BadRequest)
                 {
-
                     AnsiConsole.MarkupLine("[yellow]DeviceId[/] 验证失败");
                     response = await ozan.PreVerification(phone);
                     if (!string.IsNullOrEmpty(response.Content))
@@ -193,7 +192,8 @@ namespace Ozan
                         //json序列化
                         var json = JsonConvert.DeserializeObject<JObject>(response.Content);
                         //判断json是否有errorCode 并且等于文本MFA_REQUIRED
-                        if (json.TryGetValue("errorCode", out var errorCode) && errorCode.Value<string>() == "MFA_REQUIRED")
+                        if (json.TryGetValue("errorCode", out var errorCode) &&
+                            errorCode.Value<string>() == "MFA_REQUIRED")
                         {
                             var code = AnsiConsole.Ask<string>("请输入手机获取到的[bold green]验证码[/]:");
                             var mfaToken = json["mfaToken"].Value<string>();
@@ -214,28 +214,25 @@ namespace Ozan
                                     await Export(ozan, phone, settings.PassWd, access_token);
                                     goto End;
                                 }
-                                errorStr = $"密码验证失败:{response.Content}";
 
+                                errorStr = $"密码验证失败:{response.Content}";
                             }
                             else
                             {
                                 errorStr = $"手机验证码失败:{response.Content}";
-
                             }
                         }
                         else
                         {
                             errorStr = $"未知的返回,不需要验证码？:{response.Content}";
                         }
-
                     }
                     else
                     {
                         errorStr = $"预授权失败？:{response.Content}";
-
                     }
-                    AnsiConsole.MarkupLine($"发生错误 [red]{errorStr}[/]");
 
+                    AnsiConsole.MarkupLine($"发生错误 [red]{errorStr}[/]");
                 }
                 else if (response.StatusCode == HttpStatusCode.OK)
                 {
@@ -249,15 +246,17 @@ namespace Ozan
                         await Export(ozan, phone, settings.PassWd, access_token);
                         goto End;
                     }
+
                     errorStr = $"密码验证失败:{response.Content}";
                     AnsiConsole.MarkupLine($"发生错误 [red]{errorStr}[/]");
                 }
-                End: 
+
+                End:
                 AnsiConsole.MarkupLine("[bold green]Ozan End[/]");
                 return 0;
             }
 
-            private async Task Export(Api ozan,string phone,string pwd,string token)
+            private async Task Export(Api ozan, string phone, string pwd, string token)
             {
                 var outE = new OzanFile()
                 {
