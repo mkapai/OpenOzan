@@ -188,8 +188,8 @@ namespace Ozan.Tg
             {
                 UserAgent =
                     "Mozilla/5.0 (Linux; Android 10; Redmi K30 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Mobile Safari/537.36",
-                Proxy = new WebProxy("127.0.0.1", 10809)
             };
+            options.Proxy = proxy;
             var client = new RestClient(options);
             var request = new RestRequest(path, Method.Post);
             request.AddHeader("Origin", uri.Host);
